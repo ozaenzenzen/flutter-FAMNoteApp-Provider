@@ -8,6 +8,18 @@ class NotesOperation extends ChangeNotifier{
     return _notes;
   }
 
+  TextEditingController titleController = TextEditingController();
+
+  TextEditingController get gettc{
+    return titleController;
+  }
+
+  TextEditingController descController = TextEditingController();
+
+  TextEditingController get getdc{
+    return descController;
+  }
+
   NotesOperation(){
     addNewNote("First Note", "First Note Description");
   }
@@ -15,6 +27,16 @@ class NotesOperation extends ChangeNotifier{
   void addNewNote(String title, String description) {
     Note note = Note(title: title, description: description);
     _notes.add(note);
+    notifyListeners();
+  }
+
+  dynamic editNote(int id, String title, String description){
+    // Note note = Note(title: title, description: description);
+    return _notes[id];
+  }
+
+  void deleteNote(int id){
+    _notes.removeAt(id);
     notifyListeners();
   }
 }

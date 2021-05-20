@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fam_noteapp/model/note_operations.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_fam_noteapp/model/note_operations.dart';
 
 class NoteDetails extends StatefulWidget {
   @override
@@ -8,24 +9,50 @@ class NoteDetails extends StatefulWidget {
 }
 
 class _NoteDetailsState extends State<NoteDetails> {
-  String titleDetail;
-  String descriptionDetail;
+  int idCounter = 0;
+  String titleDetail = "";
+  String descriptionDetail = "";
+
+  NotesOperation notesOperation;
+
+  // TextEditingController titleController = TextEditingController();
+  // TextEditingController descController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    // var tc = notesOperation.titleController;
+    // var dc = notesOperation.descController;
+
+    // tc.text = titleDetail;
+    // dc.text = descriptionDetail;
+    // dynamic s = widget.notesOperation.getNotes[1];
     return Scaffold(
       backgroundColor: Colors.green[300],
+
+      // App Bar
       appBar: new AppBar(
         leading: new IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Provider.of<NotesOperation>(
-              context,
-              listen: false,
-            ).addNewNote(
-              titleDetail,
-              descriptionDetail,
-            );
-            Navigator.pop(context, true);
+            if (titleDetail != null || descriptionDetail != null) {
+              Provider.of<NotesOperation>(
+                context,
+                listen: false,
+              ).addNewNote(
+                titleDetail,
+                descriptionDetail,
+              );
+              Navigator.pop(context);
+            } else {
+              Provider.of<NotesOperation>(
+                context,
+                listen: false,
+              ).addNewNote(
+                titleDetail = "Kosong",
+                descriptionDetail = "Kosong",
+              );
+              Navigator.pop(context);
+            }
           },
         ),
         backgroundColor: Colors.green[900],
@@ -50,6 +77,7 @@ class _NoteDetailsState extends State<NoteDetails> {
           children: [
             //Title Text Field
             new TextField(
+              
               maxLines: null,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -71,6 +99,7 @@ class _NoteDetailsState extends State<NoteDetails> {
 
             //Description Text Field
             new TextField(
+              
               maxLines: null,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -94,20 +123,48 @@ class _NoteDetailsState extends State<NoteDetails> {
       ),
 
       // Floating Action Button : Save
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.green[900],
-        icon: new Icon(Icons.save),
-        label: new Text("Save"),
-        onPressed: () {
-          Provider.of<NotesOperation>(
-            context,
-            listen: false,
-          ).addNewNote(
-            titleDetail,
-            descriptionDetail,
-          );
-          Navigator.pop(context);
-        },
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            heroTag: "delete",
+            backgroundColor: Colors.green[900],
+            icon: new Icon(Icons.delete),
+            label: new Text("Delete"),
+            onPressed: () {},
+          ),
+          new SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton.extended(
+            heroTag: "saave",
+            backgroundColor: Colors.green[900],
+            icon: new Icon(Icons.save),
+            label: new Text("Save"),
+            onPressed: () {
+              if (titleDetail != null || descriptionDetail != null) {
+                Provider.of<NotesOperation>(
+                  context,
+                  listen: false,
+                ).addNewNote(
+                  titleDetail,
+                  descriptionDetail,
+                );
+                Navigator.pop(context);
+              } else {
+                Provider.of<NotesOperation>(
+                  context,
+                  listen: false,
+                ).addNewNote(
+                  titleDetail = "Kosong",
+                  descriptionDetail = "Kosong",
+                );
+                Navigator.pop(context);
+                // print(notesOperation.getNotes);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
