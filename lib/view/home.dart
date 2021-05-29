@@ -11,6 +11,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var temp;
+
   @override
   Widget build(BuildContext context) {
     // var constWidth = MediaQuery.of(context).size.width;
@@ -35,10 +37,13 @@ class _HomeState extends State<Home> {
       //Body
       body: Consumer<NotesOperation>(
         builder: (context, NotesOperation data, child) {
-          return new SingleChildScrollView(
+          return SingleChildScrollView(
             child: ListView.builder(
+              physics: ClampingScrollPhysics(),
               itemCount: data.getNotes.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
+                temp = index;
                 return Dismissible(
                   key: UniqueKey(),
                   onDismissed: (dismissed) {
@@ -60,7 +65,6 @@ class _HomeState extends State<Home> {
                   ),
                 );
               },
-              shrinkWrap: true,
             ),
           );
         },
@@ -87,17 +91,17 @@ class _HomeState extends State<Home> {
   }
 }
 
-NotesOperation notesOperation;
+// NotesOperation notesOperation;
 
 class NotesCard extends StatelessWidget {
   final Note note;
-  final int id;
+  final id;
 
   NotesCard({this.note, this.id});
 
   @override
   Widget build(BuildContext context) {
-    NotesOperation notesOperation;
+    // NotesOperation notesOperation;
     return new Container(
       margin: new EdgeInsets.symmetric(
         horizontal: 20,
@@ -119,8 +123,8 @@ class NotesCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          notesOperation.titleController.text = note.title;
-          notesOperation.descController.text = note.description;
+          // notesOperation.titleController.text = note.title;
+          // notesOperation.descController.text = note.description;
           // Provider.of<NotesOperation>(
           //       context,
           //       listen: false,
@@ -128,10 +132,43 @@ class NotesCard extends StatelessWidget {
           //       titleDetail,
           //       descriptionDetail,
           //     );
+
+          // showDialog(
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return AlertDialog(
+          //       title: const Text('AlertDialog Title'),
+          //       content: SingleChildScrollView(
+          //         child: ListBody(
+          //           children: const <Widget>[
+          //             Text('This is a demo alert dialog.'),
+          //             Text('Would you like to approve of this message?'),
+          //           ],
+          //         ),
+          //       ),
+          //       actions: <Widget>[
+          //         TextButton(
+          //           child: const Text('Approve'),
+          //           onPressed: () {
+          //             Navigator.of(context).pop();
+          //           },
+          //         ),
+          //       ],
+          //     );
+          //   },
+          // );
+
+          //
+          //
+
           Navigator.of(context).push(
             CupertinoPageRoute(
               builder: (BuildContext context) {
-                return NoteDetails();
+                return NoteDetails(
+                  idCounter: id,
+                  ndTitle: note.title,
+                  ndDescription: note.description,
+                );
               },
             ),
           );
@@ -174,6 +211,8 @@ class NotesCard extends StatelessWidget {
               ),
               child: new Text(
                 note.description,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
                 style: new TextStyle(
                   color: Colors.black45,
                   fontFamily: "SF Compact",
