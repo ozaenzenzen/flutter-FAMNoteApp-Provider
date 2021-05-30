@@ -1,3 +1,6 @@
+//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
+//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/home.dart';

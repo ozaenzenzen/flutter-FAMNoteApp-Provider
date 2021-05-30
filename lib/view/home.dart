@@ -1,3 +1,6 @@
+//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note.dart';
@@ -15,6 +18,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    //WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
     // var constWidth = MediaQuery.of(context).size.width;
     // var constHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -124,6 +129,8 @@ class NotesCard extends StatelessWidget {
           ).editNote(id);
 
           // showDialog(
+          //WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+          //APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
           //   context: context,
           //   builder: (BuildContext context) {
           //     return AlertDialog(
