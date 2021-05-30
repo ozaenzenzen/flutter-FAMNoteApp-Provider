@@ -1,5 +1,5 @@
-//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
-//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
+//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fam_noteapp/model/note.dart';
@@ -16,22 +16,6 @@ class NotesOperation extends ChangeNotifier {
     _notes = notes;
   }
 
-  TextEditingController titleController = TextEditingController();
-
-  TextEditingController get gettc {
-    return titleController;
-  }
-
-  TextEditingController descController = TextEditingController();
-
-  TextEditingController get getdc {
-    return descController;
-  }
-
-  void onChange() {
-    notifyListeners();
-  }
-
   NotesOperation() {
     addNewNote(0, "First Note", "First Note Description");
   }
@@ -46,12 +30,9 @@ class NotesOperation extends ChangeNotifier {
     return _notes.elementAt(id);
   }
 
-  dynamic updateNote(dynamic id, [String title, String description]) {
+  void updateNote(dynamic id, [String title, String description]) {
     Note note = Note(id: id, title: title, description: description);
-    // _notes.removeAt(id);
-    // _notes.insert(id, note);
     _notes[id] = note;
-
     notifyListeners();
   }
 
