@@ -130,28 +130,7 @@ class _NoteDetailsState extends State<NoteDetails> {
               ).deleteNote(id);
 
               Navigator.pop(context);
-              // setState(
-              //   () {
-              //     // notesOperation.getNotes.removeAt(id);
-
-              //     ////
-              //     // if (data.getNotes == null) {
-              //     //   // if (data.getNotes.contains(widget.idCounter) == false) {
-              //     //   Widget snackBar = SnackBar(
-              //     //     content: new Text(
-              //     //       "Data belum tersimpan",
-              //     //     ),
-              //     //   );
-              //     //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              //     // } else {
-              //     //   Provider.of<NotesOperation>(
-              //     //     context,
-              //     //     listen: false,
-              //     //   ).deleteNote(widget.idCounter);
-              //     //   Navigator.pop(context);
-              //     // }
-              //   },
-              // );
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 new SnackBar(
                   content: new Text("Data Deleted"),
