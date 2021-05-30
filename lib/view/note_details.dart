@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_fam_noteapp/model/note.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
 
 import '../model/note_operations.dart';
-import 'home.dart';
 
 class NoteDetails extends StatefulWidget {
+  final trigger;
   final idCounter;
   final ndTitle;
   final ndDescription;
 
-  NoteDetails({this.idCounter, this.ndTitle, this.ndDescription});
+  NoteDetails({this.trigger, this.idCounter, this.ndTitle, this.ndDescription});
 
   @override
   _NoteDetailsState createState() => _NoteDetailsState();
@@ -24,6 +24,7 @@ class _NoteDetailsState extends State<NoteDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var typeSave = widget.trigger;
     var id = widget.idCounter;
     String titleDetail = widget.ndTitle;
     String descriptionDetail = widget.ndDescription;
@@ -123,19 +124,46 @@ class _NoteDetailsState extends State<NoteDetails> {
             icon: new Icon(Icons.delete),
             label: new Text("Delete"),
             onPressed: () {
-              // if(notesOperation.getNotes.isNotEmpty)
-              Provider.of<NotesOperation>(
-                context,
-                listen: false,
-              ).deleteNote(id);
+              if (typeSave != "save") {
+                Provider.of<NotesOperation>(
+                  context,
+                  listen: false,
+                ).deleteNote(id);
+                // print("data deleted ${id}");
 
-              Navigator.pop(context);
-              
-              ScaffoldMessenger.of(context).showSnackBar(
-                new SnackBar(
-                  content: new Text("Data Deleted"),
-                ),
-              );
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  new SnackBar(
+                    content: new Text("Data Deleted"),
+                  ),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Data is not saved yet!'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: const <Widget>[
+                            Text('You have to save the note first'),
+                            Text('And then you can delete the note.'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Back'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             },
           ),
           new SizedBox(
@@ -147,7 +175,11 @@ class _NoteDetailsState extends State<NoteDetails> {
             icon: new Icon(Icons.save),
             label: new Text("Save"),
             onPressed: () {
-              saveNote(id, titleDetail, descriptionDetail, context);
+              try {
+                saveNote(typeSave, id, titleDetail, descriptionDetail, context);
+              } catch (e) {
+                print(e);
+              }
             },
           ),
         ],
@@ -155,31 +187,40 @@ class _NoteDetailsState extends State<NoteDetails> {
     );
   }
 
-  void saveNote(var id, String titleDetail, String descriptionDetail,
+  void saveNote(var type, var id, String titleDetail, String descriptionDetail,
       BuildContext context) {
-    // Note note =
-    //     Note(id: id, title: titleDetail, description: descriptionDetail);
-    if (titleDetail != null || descriptionDetail != null) {
+    if (type == "update") {
       Provider.of<NotesOperation>(
         context,
         listen: false,
-      ).addNewNote(
+      ).updateNote(
         id,
         titleDetail,
         descriptionDetail,
       );
       Navigator.pop(context);
     } else {
-      Provider.of<NotesOperation>(
-        context,
-        listen: false,
-      ).addNewNote(
-        id,
-        titleDetail = "Kosong",
-        descriptionDetail = "Kosong",
-      );
-      Navigator.pop(context);
-      // print(notesOperation.getNotes);
+      if (titleDetail != null || descriptionDetail != null) {
+        Provider.of<NotesOperation>(
+          context,
+          listen: false,
+        ).addNewNote(
+          id,
+          titleDetail,
+          descriptionDetail,
+        );
+        Navigator.pop(context);
+      } else {
+        Provider.of<NotesOperation>(
+          context,
+          listen: false,
+        ).addNewNote(
+          id,
+          titleDetail = "Kosong",
+          descriptionDetail = "Kosong",
+        );
+        Navigator.pop(context);
+      }
     }
   }
 }

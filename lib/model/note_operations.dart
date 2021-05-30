@@ -36,13 +36,20 @@ class NotesOperation extends ChangeNotifier {
   void addNewNote(dynamic id, [String title, String description]) {
     Note note = Note(id: id, title: title, description: description);
     _notes.add(note);
-    // setNotes(note);
     notifyListeners();
   }
 
-  dynamic editNote(int id, String title, String description) {
-    // Note note = Note(title: title, description: description);
-    return _notes[id];
+  dynamic editNote(int id) {
+    return _notes.elementAt(id);
+  }
+
+  dynamic updateNote(dynamic id, [String title, String description]) {
+    Note note = Note(id: id, title: title, description: description);
+    // _notes.removeAt(id);
+    // _notes.insert(id, note);
+    _notes[id] = note;
+
+    notifyListeners();
   }
 
   void deleteNote(int id) {

@@ -44,15 +44,13 @@ class _HomeState extends State<Home> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 temp = index;
+                // print(temp);
                 return Dismissible(
                   key: UniqueKey(),
                   onDismissed: (dismissed) {
                     setState(() {
                       data.getNotes.removeAt(index);
-                      // data.deleteNote(index);
                     });
-                    // print(data.getNotes);
-                    // notifyListeners();
                     ScaffoldMessenger.of(context).showSnackBar(
                       new SnackBar(
                         content: new Text("Data Deleted"),
@@ -72,16 +70,13 @@ class _HomeState extends State<Home> {
 
       //Floating Action Button
       floatingActionButton: FloatingActionButton(
-        // elevation: 0,
         backgroundColor: Colors.green[900],
         child: Icon(Icons.add),
         onPressed: () {
-          // notesOperation.titleController.text = "";
-          // notesOperation.descController.text = "";
           Navigator.of(context).push(
             CupertinoPageRoute(
               builder: (BuildContext context) {
-                return NoteDetails();
+                return NoteDetails(trigger: "save");
               },
             ),
           );
@@ -123,15 +118,10 @@ class NotesCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // notesOperation.titleController.text = note.title;
-          // notesOperation.descController.text = note.description;
-          // Provider.of<NotesOperation>(
-          //       context,
-          //       listen: false,
-          //     ).addNewNote(
-          //       titleDetail,
-          //       descriptionDetail,
-          //     );
+          Note dataNO = Provider.of<NotesOperation>(
+            context,
+            listen: false,
+          ).editNote(id);
 
           // showDialog(
           //   context: context,
@@ -158,16 +148,15 @@ class NotesCard extends StatelessWidget {
           //   },
           // );
 
-          //
-          //
-
           Navigator.of(context).push(
             CupertinoPageRoute(
               builder: (BuildContext context) {
+                // print("Update ke-${id}");
                 return NoteDetails(
+                  trigger: "update",
                   idCounter: id,
-                  ndTitle: note.title,
-                  ndDescription: note.description,
+                  ndTitle: dataNO.title,
+                  ndDescription: dataNO.description,
                 );
               },
             ),
@@ -213,95 +202,6 @@ class NotesCard extends StatelessWidget {
                 note.description,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
-                style: new TextStyle(
-                  color: Colors.black45,
-                  fontFamily: "SF Compact",
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EditNotesCard extends StatelessWidget {
-  final Note note;
-
-  EditNotesCard({this.note});
-
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      margin: new EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 15,
-      ),
-      height: MediaQuery.of(context).size.height * 0.18,
-      width: MediaQuery.of(context).size.width,
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
-        // boxShadow: [
-        //   new BoxShadow(
-        //     offset: new Offset(5, 5),
-        //     spreadRadius: 1,
-        //     blurRadius: 5,
-        //     color: Colors.black45,
-        //   ),
-        // ],
-        color: Colors.green[500],
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (BuildContext context) {
-                return NoteDetails();
-              },
-            ),
-          );
-        },
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //Title
-            new Container(
-              margin: new EdgeInsets.only(
-                top: 10,
-                left: 10,
-                right: 10,
-              ),
-              child: new Text(
-                note.title,
-                style: new TextStyle(
-                  fontFamily: "SF Compact",
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-
-            //Divider
-            Divider(
-              height: 20,
-              indent: 10,
-              endIndent: 10,
-              thickness: 1,
-              color: Colors.black12,
-            ),
-
-            //Description
-            new Container(
-              margin: new EdgeInsets.only(
-                bottom: 10,
-                left: 10,
-                right: 10,
-              ),
-              child: new Text(
-                note.description,
                 style: new TextStyle(
                   color: Colors.black45,
                   fontFamily: "SF Compact",
