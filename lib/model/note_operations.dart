@@ -5,6 +5,7 @@ class NotesOperation extends ChangeNotifier {
   List<Note> _notes = <Note>[];
 
   List<Note> get getNotes {
+    // notifyListeners();
     return _notes;
   }
 
@@ -23,14 +24,15 @@ class NotesOperation extends ChangeNotifier {
   TextEditingController get getdc {
     return descController;
   }
-  
+
   NotesOperation() {
-    addNewNote("First Note", "First Note Description");
+    addNewNote(0, "First Note", "First Note Description");
   }
 
-  void addNewNote(var id, [String title, String description]) {
+  void addNewNote(dynamic id, [String title, String description]) {
     Note note = Note(id: id, title: title, description: description);
     _notes.add(note);
+    // setNotes(note);
     notifyListeners();
   }
 

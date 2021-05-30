@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_fam_noteapp/model/note.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
@@ -7,9 +8,9 @@ import '../model/note_operations.dart';
 import 'home.dart';
 
 class NoteDetails extends StatefulWidget {
-  var idCounter;
-  var ndTitle = "";
-  var ndDescription = "";
+  final idCounter;
+  final ndTitle;
+  final ndDescription;
 
   NoteDetails({this.idCounter, this.ndTitle, this.ndDescription});
 
@@ -20,7 +21,7 @@ class NoteDetails extends StatefulWidget {
 class _NoteDetailsState extends State<NoteDetails> {
   // int idCounter = 0;
 
-  NotesOperation notesOperation;
+  // NotesOperation notesOperation;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
@@ -32,6 +33,7 @@ class _NoteDetailsState extends State<NoteDetails> {
     String descriptionDetail = widget.ndDescription;
     // var tc = notesOperation.titleController;
     // var dc = notesOperation.descController;
+
     setState(() {
       titleController.text = titleDetail;
       descController.text = descriptionDetail;
@@ -39,7 +41,7 @@ class _NoteDetailsState extends State<NoteDetails> {
     // tc.text = titleDetail;
     // dc.text = descriptionDetail;
     // dynamic s = widget.notesOperation.getNotes[1];
-    // NotesOperation data;
+    NotesOperation notesOperation;
     return Scaffold(
       backgroundColor: Colors.green[300],
 
@@ -129,34 +131,40 @@ class _NoteDetailsState extends State<NoteDetails> {
             icon: new Icon(Icons.delete),
             label: new Text("Delete"),
             onPressed: () {
-              setState(
-                () {
-                  notesOperation.getNotes.removeAt(id);
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Home(),
-                    ),
-                    (route) => false,
-                  );
+              // if(notesOperation.getNotes.isNotEmpty)
+              Provider.of<NotesOperation>(
+                context,
+                listen: false,
+              ).getNotes.remove(id);
+              Navigator.pop(context);
+              // setState(
+              //   () {
+              //     // notesOperation.getNotes.removeAt(id);
 
-                  ////
-                  // if (data.getNotes == null) {
-                  //   // if (data.getNotes.contains(widget.idCounter) == false) {
-                  //   Widget snackBar = SnackBar(
-                  //     content: new Text(
-                  //       "Data belum tersimpan",
-                  //     ),
-                  //   );
-                  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  // } else {
-                  //   Provider.of<NotesOperation>(
-                  //     context,
-                  //     listen: false,
-                  //   ).deleteNote(widget.idCounter);
-                  //   Navigator.pop(context);
-                  // }
-                },
+                  
+
+              //     ////
+              //     // if (data.getNotes == null) {
+              //     //   // if (data.getNotes.contains(widget.idCounter) == false) {
+              //     //   Widget snackBar = SnackBar(
+              //     //     content: new Text(
+              //     //       "Data belum tersimpan",
+              //     //     ),
+              //     //   );
+              //     //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //     // } else {
+              //     //   Provider.of<NotesOperation>(
+              //     //     context,
+              //     //     listen: false,
+              //     //   ).deleteNote(widget.idCounter);
+              //     //   Navigator.pop(context);
+              //     // }
+              //   },
+              // );
+              ScaffoldMessenger.of(context).showSnackBar(
+                new SnackBar(
+                  content: new Text("Data Deleted"),
+                ),
               );
             },
           ),
@@ -177,7 +185,10 @@ class _NoteDetailsState extends State<NoteDetails> {
     );
   }
 
-  void saveNote(var id, String titleDetail, String descriptionDetail, BuildContext context) {
+  void saveNote(var id, String titleDetail, String descriptionDetail,
+      BuildContext context) {
+    // Note note =
+    //     Note(id: id, title: titleDetail, description: descriptionDetail);
     if (titleDetail != null || descriptionDetail != null) {
       Provider.of<NotesOperation>(
         context,
