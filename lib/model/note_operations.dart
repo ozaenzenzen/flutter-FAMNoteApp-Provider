@@ -25,6 +25,10 @@ class NotesOperation extends ChangeNotifier {
     return descController;
   }
 
+  void onChange() {
+    notifyListeners();
+  }
+
   NotesOperation() {
     addNewNote(0, "First Note", "First Note Description");
   }

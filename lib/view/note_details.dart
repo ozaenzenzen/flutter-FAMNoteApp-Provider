@@ -19,10 +19,6 @@ class NoteDetails extends StatefulWidget {
 }
 
 class _NoteDetailsState extends State<NoteDetails> {
-  // int idCounter = 0;
-
-  // NotesOperation notesOperation;
-
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
 
@@ -31,17 +27,13 @@ class _NoteDetailsState extends State<NoteDetails> {
     var id = widget.idCounter;
     String titleDetail = widget.ndTitle;
     String descriptionDetail = widget.ndDescription;
-    // var tc = notesOperation.titleController;
-    // var dc = notesOperation.descController;
 
     setState(() {
       titleController.text = titleDetail;
       descController.text = descriptionDetail;
     });
-    // tc.text = titleDetail;
-    // dc.text = descriptionDetail;
-    // dynamic s = widget.notesOperation.getNotes[1];
-    NotesOperation notesOperation;
+
+    // NotesOperation notesOperation;
     return Scaffold(
       backgroundColor: Colors.green[300],
 
@@ -135,13 +127,12 @@ class _NoteDetailsState extends State<NoteDetails> {
               Provider.of<NotesOperation>(
                 context,
                 listen: false,
-              ).getNotes.remove(id);
+              ).deleteNote(id);
+
               Navigator.pop(context);
               // setState(
               //   () {
               //     // notesOperation.getNotes.removeAt(id);
-
-                  
 
               //     ////
               //     // if (data.getNotes == null) {
