@@ -20,8 +20,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
     //APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
-    // var constWidth = MediaQuery.of(context).size.width;
-    // var constHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.green[300],
 
@@ -90,5 +89,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-// NotesOperation notesOperation;
