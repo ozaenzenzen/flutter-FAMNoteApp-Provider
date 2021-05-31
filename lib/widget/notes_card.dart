@@ -23,14 +23,6 @@ class NotesCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.circular(10),
-        // boxShadow: [
-        //   new BoxShadow(
-        //     offset: new Offset(5, 5),
-        //     spreadRadius: 1,
-        //     blurRadius: 5,
-        //     color: Colors.black45,
-        //   ),
-        // ],
         color: Colors.green[500],
       ),
       child: InkWell(
@@ -40,32 +32,8 @@ class NotesCard extends StatelessWidget {
             listen: false,
           ).editNote(id);
 
-          // showDialog(
           //WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
           //APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
-          //   context: context,
-          //   builder: (BuildContext context) {
-          //     return AlertDialog(
-          //       title: const Text('AlertDialog Title'),
-          //       content: SingleChildScrollView(
-          //         child: ListBody(
-          //           children: const <Widget>[
-          //             Text('This is a demo alert dialog.'),
-          //             Text('Would you like to approve of this message?'),
-          //           ],
-          //         ),
-          //       ),
-          //       actions: <Widget>[
-          //         TextButton(
-          //           child: const Text('Approve'),
-          //           onPressed: () {
-          //             Navigator.of(context).pop();
-          //           },
-          //         ),
-          //       ],
-          //     );
-          //   },
-          // );
 
           Navigator.of(context).push(
             CupertinoPageRoute(

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/note_details.dart';
-import 'package:flutter_fam_noteapp/widget/note_card.dart';
+import 'package:flutter_fam_noteapp/widget/notes_card.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -92,4 +92,3 @@ class _HomeState extends State<Home> {
 }
 
 // NotesOperation notesOperation;
-
