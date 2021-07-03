@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note.dart';
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/note_details.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class NotesCard extends StatelessWidget {
@@ -35,19 +36,27 @@ class NotesCard extends StatelessWidget {
           //WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
           //APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
 
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (BuildContext context) {
-                // print("Update ke-${id}");
-                return NoteDetails(
-                  trigger: "update",
-                  idCounter: id,
-                  ndTitle: dataNO.title,
-                  ndDescription: dataNO.description,
-                );
-              },
+          Get.to(
+            () => NoteDetails(
+              trigger: "update",
+              idCounter: id,
+              ndTitle: dataNO.title,
+              ndDescription: dataNO.description,
             ),
           );
+          // Navigator.of(context).push(
+          //   CupertinoPageRoute(
+          //     builder: (BuildContext context) {
+          //       // print("Update ke-${id}");
+          //       return NoteDetails(
+          //         trigger: "update",
+          //         idCounter: id,
+          //         ndTitle: dataNO.title,
+          //         ndDescription: dataNO.description,
+          //       );
+          //     },
+          //   ),
+          // );
         },
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +69,7 @@ class NotesCard extends StatelessWidget {
                 right: 10,
               ),
               child: new Text(
-                note.title,
+                (note.title != null) ? note.title : "(Blank)",
                 style: new TextStyle(
                   fontFamily: "SF Compact",
                   fontSize: 19,
@@ -86,7 +95,7 @@ class NotesCard extends StatelessWidget {
                 right: 10,
               ),
               child: new Text(
-                note.description,
+                (note.description != null) ? note.description : "(Blank)",
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
                 style: new TextStyle(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/note_details.dart';
 import 'package:flutter_fam_noteapp/widget/notes_card.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -77,13 +78,14 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green[900],
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-              builder: (BuildContext context) {
-                return NoteDetails(trigger: "save");
-              },
-            ),
-          );
+          Get.to(() => NoteDetails(trigger: "save"));
+          // Navigator.of(context).push(
+          //   CupertinoPageRoute(
+          //     builder: (BuildContext context) {
+          //       return NoteDetails(trigger: "save");
+          //     },
+          //   ),
+          // );
         },
       ),
     );

@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
@@ -25,13 +26,15 @@ class NoteDetails extends StatefulWidget {
 class _NoteDetailsState extends State<NoteDetails> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
+   var titleDetail = "";
+   var descriptionDetail = "";
 
   @override
   Widget build(BuildContext context) {
     var typeSave = widget.trigger;
     var id = widget.idCounter;
-    String titleDetail = widget.ndTitle;
-    String descriptionDetail = widget.ndDescription;
+    titleDetail = widget.ndTitle;
+    descriptionDetail = widget.ndDescription;
 
     setState(() {
       titleController.text = titleDetail;
@@ -48,7 +51,7 @@ class _NoteDetailsState extends State<NoteDetails> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             // saveNote(widget.idCounter, titleDetail, descriptionDetail, context);
-            Navigator.pop(context);
+            Get.back();
           },
         ),
         backgroundColor: Colors.green[900],
@@ -134,8 +137,7 @@ class _NoteDetailsState extends State<NoteDetails> {
                   listen: false,
                 ).deleteNote(id);
                 // print("data deleted ${id}");
-
-                Navigator.pop(context);
+                Get.back();
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   new SnackBar(
@@ -160,7 +162,7 @@ class _NoteDetailsState extends State<NoteDetails> {
                         TextButton(
                           child: const Text('Back'),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                         ),
                       ],
@@ -202,7 +204,7 @@ class _NoteDetailsState extends State<NoteDetails> {
         titleDetail,
         descriptionDetail,
       );
-      Navigator.pop(context);
+      Get.back();
     } else {
       if (titleDetail != null || descriptionDetail != null) {
         Provider.of<NotesOperation>(
@@ -213,7 +215,7 @@ class _NoteDetailsState extends State<NoteDetails> {
           titleDetail,
           descriptionDetail,
         );
-        Navigator.pop(context);
+        Get.back();
       } else {
         Provider.of<NotesOperation>(
           context,
@@ -223,7 +225,7 @@ class _NoteDetailsState extends State<NoteDetails> {
           titleDetail = "Kosong",
           descriptionDetail = "Kosong",
         );
-        Navigator.pop(context);
+        Get.back();
       }
     }
   }
