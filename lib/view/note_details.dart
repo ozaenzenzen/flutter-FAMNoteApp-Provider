@@ -1,8 +1,8 @@
-//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
-//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI 
-
+//WATERMARK FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
+//APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
 
 import 'package:flutter/material.dart';
+import 'package:flutter_fam_noteapp/widget/home_alertdialog.dart';
 import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
@@ -26,21 +26,25 @@ class NoteDetails extends StatefulWidget {
 class _NoteDetailsState extends State<NoteDetails> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
-   var titleDetail = "";
-   var descriptionDetail = "";
+  var titleDetail = "";
+  var descriptionDetail = "";
+  var typeSave;
+  var id;
+
+  @override
+  void initState() {
+    titleDetail = widget.ndTitle;
+    descriptionDetail = widget.ndDescription;
+    titleController.text = titleDetail;
+    descController.text = descriptionDetail;
+
+    typeSave = widget.trigger;
+    id = widget.idCounter;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var typeSave = widget.trigger;
-    var id = widget.idCounter;
-    titleDetail = widget.ndTitle;
-    descriptionDetail = widget.ndDescription;
-
-    setState(() {
-      titleController.text = titleDetail;
-      descController.text = descriptionDetail;
-    });
-
     // NotesOperation notesOperation;
     return Scaffold(
       backgroundColor: Colors.green[300],
@@ -145,30 +149,28 @@ class _NoteDetailsState extends State<NoteDetails> {
                   ),
                 );
               } else {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Data is not saved yet!'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text('You have to save the note first'),
-                            Text('And then you can delete the note.'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('Back'),
-                          onPressed: () {
-                            Get.back();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+                Get.defaultDialog(
+                    radius: 10.0,
+                    title: 'Data is not saved yet!',
+                    titleStyle: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "SF Compact",
+                    ),
+                    middleText:
+                        'You have to save the note first and then you can delete the note.',
+                    middleTextStyle: TextStyle(
+                      fontSize: 15,
+                      fontFamily: "SF Compact",
+                    ),
+                    textCancel: "Back",
+                    buttonColor: Colors.white);
+
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return HomeAlertDialog();
+                //   },
+                // );
               }
             },
           ),
@@ -181,10 +183,10 @@ class _NoteDetailsState extends State<NoteDetails> {
             icon: new Icon(Icons.save),
             label: new Text("Save"),
             onPressed: () {
-              try {
-                saveNote(typeSave, id, titleDetail, descriptionDetail, context);
-              } catch (e) {
-                print(e);
+              if (typeSave == "update") {
+                update(id, titleDetail, descriptionDetail, context);
+              } else {
+                add(id, titleDetail, descriptionDetail, context);
               }
             },
           ),
@@ -193,40 +195,41 @@ class _NoteDetailsState extends State<NoteDetails> {
     );
   }
 
-  void saveNote(var type, var id, String titleDetail, String descriptionDetail,
+  void update(var id, String titleDetail, String descriptionDetail,
       BuildContext context) {
-    if (type == "update") {
+    Provider.of<NotesOperation>(
+      context,
+      listen: false,
+    ).updateNote(
+      id,
+      titleDetail,
+      descriptionDetail,
+    );
+    Get.back();
+  }
+
+  void add(var id, String titleDetail, String descriptionDetail,
+      BuildContext context) {
+    if (titleDetail != null || descriptionDetail != null) {
       Provider.of<NotesOperation>(
         context,
         listen: false,
-      ).updateNote(
+      ).addNewNote(
         id,
         titleDetail,
         descriptionDetail,
       );
       Get.back();
     } else {
-      if (titleDetail != null || descriptionDetail != null) {
-        Provider.of<NotesOperation>(
-          context,
-          listen: false,
-        ).addNewNote(
-          id,
-          titleDetail,
-          descriptionDetail,
-        );
-        Get.back();
-      } else {
-        Provider.of<NotesOperation>(
-          context,
-          listen: false,
-        ).addNewNote(
-          id,
-          titleDetail = "Kosong",
-          descriptionDetail = "Kosong",
-        );
-        Get.back();
-      }
+      Provider.of<NotesOperation>(
+        context,
+        listen: false,
+      ).addNewNote(
+        id,
+        titleDetail = "Kosong",
+        descriptionDetail = "Kosong",
+      );
+      Get.back();
     }
   }
 }
