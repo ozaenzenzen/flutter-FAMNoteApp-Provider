@@ -2,7 +2,6 @@
 //APP FROM FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI FAUZAN AKMAL MAHDI
 
 import 'package:flutter/material.dart';
-import 'package:flutter_fam_noteapp/widget/home_alertdialog.dart';
 import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
