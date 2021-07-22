@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fam_noteapp/model/note.dart';
-import 'package:flutter_fam_noteapp/model/note_operations.dart';
+import 'package:flutter_fam_noteapp/services/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/note_details.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,10 @@ class NotesCard extends StatelessWidget {
   final Note note;
   final id;
 
-  NotesCard({this.note, this.id});
+  NotesCard({
+    this.note,
+    this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +47,6 @@ class NotesCard extends StatelessWidget {
               ndDescription: dataNO.description,
             ),
           );
-          // Navigator.of(context).push(
-          //   CupertinoPageRoute(
-          //     builder: (BuildContext context) {
-          //       // print("Update ke-${id}");
-          //       return NoteDetails(
-          //         trigger: "update",
-          //         idCounter: id,
-          //         ndTitle: dataNO.title,
-          //         ndDescription: dataNO.description,
-          //       );
-          //     },
-          //   ),
-          // );
         },
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
