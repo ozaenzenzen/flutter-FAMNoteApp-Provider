@@ -3,7 +3,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fam_noteapp/model/note_operations.dart';
+import 'package:flutter_fam_noteapp/services/note_operations.dart';
 import 'package:flutter_fam_noteapp/view/note_details.dart';
 import 'package:flutter_fam_noteapp/widget/notes_card.dart';
 import 'package:get/get.dart';

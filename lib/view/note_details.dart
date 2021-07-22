@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:flutter_fam_noteapp/model/note_operations.dart';
+import 'package:flutter_fam_noteapp/services/note_operations.dart';
 
-import '../model/note_operations.dart';
+import '../services/note_operations.dart';
 
 class NoteDetails extends StatefulWidget {
   final trigger;
@@ -53,7 +53,6 @@ class _NoteDetailsState extends State<NoteDetails> {
         leading: new IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // saveNote(widget.idCounter, titleDetail, descriptionDetail, context);
             Get.back();
           },
         ),
